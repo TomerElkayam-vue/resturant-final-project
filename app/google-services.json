@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "825357249263",
+    "firebase_url": "https://just-eat-56260-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "just-eat-56260",
+    "storage_bucket": "just-eat-56260.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825357249263:android:d01b540fdec9314aedc91a",
+        "android_client_info": {
+          "package_name": "com.example.finalprojectresturant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825357249263-i9p9vsu06u2ic5hr8nv4ip5pdihephr8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFl5BMh3qQvhwk3K2NnlvTqy4Qg9GdMQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825357249263-i9p9vsu06u2ic5hr8nv4ip5pdihephr8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
