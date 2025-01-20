@@ -27,7 +27,6 @@ class ReviewsRepository() {
     }
 
     suspend fun editReview(review: ReviewModel) = withContext(Dispatchers.IO) {
-        Log.i("fafa", review.id)
         firestoreHandle.document(review.id).set(review).await()
         reviewsDao.update(review)
     }
