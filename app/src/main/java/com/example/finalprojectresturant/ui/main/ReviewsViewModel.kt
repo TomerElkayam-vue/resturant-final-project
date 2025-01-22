@@ -37,4 +37,5 @@ class ReviewsViewModel : ViewModel() {
             repository.loadReviewsFromRemoteSource(50, 0)
         }
     }
+
 }

@@ -2,12 +2,15 @@ package com.example.finalprojectresturant.ui.main.fragments.reviews_list
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +45,8 @@ class ReviewsListFragment : Fragment() {
         reviewsList.run {
             layoutManager = LinearLayoutManager(context)
             adapter = ReviewsAdapter{ id ->
-               Log.i("id", id)
+               val action = ReviewsListFragmentDirections.actionReviewsListFragmentToReviewDetailsFragment(id)
+                findNavController().navigate(action)
             }
             addItemDecoration(
                 DividerItemDecoration(
