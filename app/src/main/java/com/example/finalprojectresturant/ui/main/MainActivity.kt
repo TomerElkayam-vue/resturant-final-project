@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.add -> {
+                    navController.navigate(R.id.createReviewFragment)
                     true
                 }
                 R.id.profile -> {
