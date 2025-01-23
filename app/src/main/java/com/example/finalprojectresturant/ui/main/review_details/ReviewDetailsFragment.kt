@@ -15,6 +15,7 @@ import androidx.transition.Visibility
 import com.example.finalprojectresturant.R
 import com.example.finalprojectresturant.data.reviews.ReviewWithReviewer
 import com.example.finalprojectresturant.ui.main.ReviewsViewModel
+import com.example.finalprojectresturant.ui.main.fragments.review_details.ReviewDetailsFragmentDirections
 import com.example.finalprojectresturant.utils.decodeBase64ToImage
 import com.google.firebase.auth.FirebaseAuth
 
@@ -59,6 +60,10 @@ class ReviewDetailsFragment : Fragment() {
                 editButton.visibility = View.GONE
             }
 
+            editButton.setOnClickListener {
+                val action = ReviewDetailsFragmentDirections.actionReviewDetailsFragmentToEditReviewFragment(reviewId ?: "")
+                Navigation.findNavController(it).navigate(action)
+            }
 
             resturantName.text = currentReview?.review?.restaurant_name ?: ""
             description.text = currentReview?.review?.id ?: ""

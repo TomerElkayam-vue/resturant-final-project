@@ -31,11 +31,36 @@ class ReviewsViewModel : ViewModel() {
         return this.repository.getReviewsList(50, 0, viewModelScope)
     }
 
-
     fun invalidateReviews() {
         viewModelScope.launch {
             repository.loadReviewsFromRemoteSource(50, 0)
         }
     }
+
+    fun addReview(
+        review: ReviewModel,
+    ) {
+            viewModelScope.launch(Dispatchers.Main) {
+                repository.addReview(review)
+            }
+        }
+
+    fun saveReview(
+        review: ReviewModel,
+    ) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.editReview(review)
+        }
+    }
+
+    fun deleteReviewById(
+        reviewId: String,
+    ) {
+        viewModelScope.launch(Dispatchers.Main) {
+            repository.deleteReviewById(reviewId)
+        }
+    }
+
+
 
 }

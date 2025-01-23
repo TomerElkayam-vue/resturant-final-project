@@ -24,5 +24,31 @@
         <argument
             android:name="review_id"
             app:argType="string" />
+        <action
+            android:id="@+id/action_reviewDetailsFragment_to_editReviewFragment"
+            app:destination="@id/editReviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createReviewFragment"
+        android:name="com.example.finalprojectresturant.ui.main.fragments.create_review.CreateReviewFragment"
+        android:label="CreateReviewFragment"
+        tools:layout="@layout/fragment_create_review">
+        <action
+            android:id="@+id/action_createReviewFragment_to_reviewsListFragment"
+            app:destination="@id/reviewsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editReviewFragment"
+        android:name="com.example.finalprojectresturant.ui.main.fragments.edit_review.EditReviewFragment"
+        android:label="EditReviewFragment" >
+        <argument
+            android:name="review_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_editReviewFragment_to_reviewDetailsFragment"
+            app:destination="@id/reviewDetailsFragment" />
+        <action
+            android:id="@+id/action_editReviewFragment_to_reviewsListFragment2"
+            app:destination="@id/reviewsListFragment" />
     </fragment>
 </navigation>
