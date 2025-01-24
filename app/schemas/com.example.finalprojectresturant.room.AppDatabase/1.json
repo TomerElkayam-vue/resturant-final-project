@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0cc85f41d0e14814f785203e8616eb87",
+    "identityHash": "d1443192dad717bad6668c261a75681b",
     "entities": [
       {
         "tableName": "reviews",
@@ -15,13 +15,13 @@
             "notNull": true
           },
           {
-            "fieldPath": "reviewer_id",
+            "fieldPath": "reviewerId",
             "columnName": "reviewer_id",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "restaurant_name",
+            "fieldPath": "restaurantName",
             "columnName": "restaurant_name",
             "affinity": "TEXT",
             "notNull": true
@@ -68,7 +68,7 @@
       },
       {
         "tableName": "users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `email` TEXT NOT NULL, `profile_picture` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `email` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -87,12 +87,6 @@
             "columnName": "email",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "profile_picture",
-            "columnName": "profile_picture",
-            "affinity": "TEXT",
-            "notNull": false
           }
         ],
         "primaryKey": {
@@ -108,7 +102,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0cc85f41d0e14814f785203e8616eb87')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd1443192dad717bad6668c261a75681b')"
     ]
   }
 }

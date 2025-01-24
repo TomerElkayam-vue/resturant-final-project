@@ -31,9 +31,32 @@ class ReviewsViewModel : ViewModel() {
         return this.repository.getReviewsList(50, 0, viewModelScope)
     }
 
+    fun getAllReviewsByUserId(id: String): LiveData<List<ReviewWithReviewer>?> {
+        return this.repository.getReviewsByUserId(id)
+    }
+
     fun invalidateReviews() {
         viewModelScope.launch {
             repository.loadReviewsFromRemoteSource(50, 0)
+        }
+    }
+
+    fun getUserById(id: String): LiveData<UserModel?> {
+        val userLiveData = MutableLiveData<UserModel?>()
+        viewModelScope.launch {
+            val user = withContext(Dispatchers.IO) {
+                usersRepository.getUserByUid(id)
+            }
+            userLiveData.postValue(user)
+        }
+        return userLiveData
+    }
+
+    fun updateUser(
+        user: UserModel,
+    ) {
+        viewModelScope.launch(Dispatchers.Main) {
+            usersRepository.upsertUser(user)
         }
     }
 

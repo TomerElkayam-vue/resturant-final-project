@@ -1,15 +1,17 @@
 package com.example.finalprojectresturant.ui.main.fragments.reviews_list
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.finalprojectresturant.R
+import com.example.finalprojectresturant.data.reviews.ReviewModel
 import com.example.finalprojectresturant.data.reviews.ReviewWithReviewer
+import com.example.finalprojectresturant.ui.main.fragments.review_details.ReviewDetailsFragment
 import com.example.finalprojectresturant.utils.decodeBase64ToImage
 
 class ReviewsAdapter(val onReviewClicked: (String) -> Unit) :

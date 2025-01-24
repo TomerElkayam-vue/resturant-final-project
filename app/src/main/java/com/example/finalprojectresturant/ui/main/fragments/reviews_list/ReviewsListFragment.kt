@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.get
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +23,6 @@ class ReviewsListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_reviews_list, container, false)
     }
 
@@ -39,7 +35,6 @@ class ReviewsListFragment : Fragment() {
             (reviewsList.adapter as? ReviewsAdapter)?.updateReviews(it)
         })
     }
-
 
     private fun initStudentsList(context: Context) {
         reviewsList.run {

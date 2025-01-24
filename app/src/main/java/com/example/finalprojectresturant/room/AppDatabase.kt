@@ -8,7 +8,7 @@ import com.example.finalprojectresturant.data.users.UserModel
 import com.example.finalprojectresturant.data.users.UsersDao
 
 @Database(
-    entities = [ReviewModel::class, UserModel::class], version = 1, exportSchema = true
+    entities = [ReviewModel::class, UserModel::class], version = 3, exportSchema = true
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun reviewsDao(): ReviewsDao
