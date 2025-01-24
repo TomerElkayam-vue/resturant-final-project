@@ -4,14 +4,17 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.finalprojectresturant.R
+import com.example.finalprojectresturant.ui.main.fragments.review_details.ReviewDetailsFragmentArgs
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -48,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile -> {
+                    navController.navigate(R.id.profilePageFragment)
                     true
                 }
                 else -> false

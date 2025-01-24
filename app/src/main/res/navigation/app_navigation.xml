@@ -51,4 +51,13 @@
             android:id="@+id/action_editReviewFragment_to_reviewsListFragment2"
             app:destination="@id/reviewsListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/profilePageFragment"
+        android:name="com.example.finalprojectresturant.ui.main.fragments.profile_page.ProfilePageFragment"
+        android:label="fragment_profile_page"
+        tools:layout="@layout/fragment_profile_page" >
+        <action
+            android:id="@+id/action_profilePageFragment_to_reviewDetailsFragment"
+            app:destination="@id/reviewDetailsFragment" />
+    </fragment>
 </navigation>
