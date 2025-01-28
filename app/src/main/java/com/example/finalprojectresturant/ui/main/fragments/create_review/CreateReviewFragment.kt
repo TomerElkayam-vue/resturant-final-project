@@ -8,20 +8,26 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.example.finalprojectresturant.R
 import com.example.finalprojectresturant.data.reviews.ReviewModel
 import com.example.finalprojectresturant.ui.main.ReviewsViewModel
+import com.example.finalprojectresturant.utils.getCountries
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 
 
@@ -45,6 +51,15 @@ class CreateReviewFragment : Fragment() {
         val resturantName = view.findViewById<TextView>(R.id.create_resturant_name)
         val description = view.findViewById<TextView>(R.id.create_reviewer_description)
         val rating = view.findViewById<RatingBar>(R.id.create_resturant_rating)
+        val countriesSelect = view.findViewById<Spinner>(R.id.create_country_select)
+        lifecycleScope.launch {
+            val countries = getCountries()
+
+            if(countries.size > 0) {
+                populateSpinner(countriesSelect, countries)
+            }
+        }
+
         imageView = view.findViewById<ImageView>(R.id.create_review_image)
 
         imageView.setOnClickListener {
@@ -54,7 +69,7 @@ class CreateReviewFragment : Fragment() {
         val submitButton = view.findViewById<Button>(R.id.create_reviewer_button)
 
         submitButton.setOnClickListener {
-            val newReview = ReviewModel(restaurant_name = resturantName.text.toString(), reviewer_id = reviewerUid, review = description.text.toString(), rating = rating.rating.toInt(), image = base64Image)
+            val newReview = ReviewModel(restaurant_name = resturantName.text.toString(), reviewer_id = reviewerUid, review = description.text.toString() , country = countriesSelect.selectedItem.toString(), rating = rating.rating.toInt(), image = base64Image)
             viewModel.addReview(newReview)
             val action = CreateReviewFragmentDirections.actionCreateReviewFragmentToReviewsListFragment()
             Navigation.findNavController(it).navigate(action)
@@ -96,6 +111,13 @@ class CreateReviewFragment : Fragment() {
 
         // Convert to Base64
         return Base64.encodeToString(compressedByteArray, Base64.DEFAULT)
+    }
+
+    private fun populateSpinner(spinner: Spinner, countries: List<String>) {
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, countries)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.setSelection(countries.indexOf("Israel"))
     }
 
     companion object {

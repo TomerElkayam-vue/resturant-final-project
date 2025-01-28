@@ -9,6 +9,7 @@ data class ReviewDTO(
     val image: String? = null,
     val review: String? = null,
     val reviewer_id: String? = null,
+    val country: String? = null,
     val id: String? = null
 ) {
     fun toReviewModel(): ReviewModel {
@@ -18,7 +19,8 @@ data class ReviewDTO(
             rating = rating,
             review = review ?: "",
             reviewer_id = reviewer_id ?: "",
-            image = image
+            image = image,
+            country = country
         )
     }
 }

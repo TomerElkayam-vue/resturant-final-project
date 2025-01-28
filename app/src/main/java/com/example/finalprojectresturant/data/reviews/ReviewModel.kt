@@ -20,6 +20,7 @@ data class ReviewModel(
     @ColumnInfo(name = "reviewer_id") val reviewer_id: String,
     @ColumnInfo(name = "restaurant_name") val restaurant_name: String,
     @ColumnInfo(name = "image") val image : String? = null,
+    @ColumnInfo(name = "country") val country: String? = null,
     @ColumnInfo(name = "rating") val rating: Int,
     @ColumnInfo(name = "review") val review: String
 ) {
@@ -29,6 +30,7 @@ data class ReviewModel(
             id = id,
             restaurant_name = restaurant_name,
             reviewer_id = reviewer_id,
+            country = country,
             image = image,
             rating = rating,
             review =  review
