@@ -45,6 +45,7 @@ class ReviewDetailsFragment : Fragment() {
             }
             val resturantName = view.findViewById<TextView>(R.id.details_resturant_name)
             val description = view.findViewById<TextView>(R.id.details_reviewer_description)
+            val country = view.findViewById<TextView>(R.id.details_country)
             val userId = view.findViewById<TextView>(R.id.details_reviewer_id)
             val rating = view.findViewById<RatingBar>(R.id.details_resturant_rating)
             val image = view.findViewById<ImageView>(R.id.details_review_image)
@@ -64,6 +65,7 @@ class ReviewDetailsFragment : Fragment() {
 
             resturantName.text = currentReview?.review?.restaurant_name ?: ""
             description.text = currentReview?.review?.id ?: ""
+            country.text = currentReview?.review?.country ?: "Israel"
             userId.text = currentReview?.reviewer?.name ?: ""
             rating.rating = currentReview?.review?.rating?.toFloat() ?: 0f
 

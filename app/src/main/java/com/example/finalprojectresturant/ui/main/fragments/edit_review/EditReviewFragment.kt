@@ -8,22 +8,28 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.example.finalprojectresturant.R
 import com.example.finalprojectresturant.data.reviews.ReviewModel
 import com.example.finalprojectresturant.data.reviews.ReviewWithReviewer
 import com.example.finalprojectresturant.ui.main.ReviewsViewModel
 import com.example.finalprojectresturant.utils.decodeBase64ToImage
+import com.example.finalprojectresturant.utils.getCountries
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 
 
@@ -57,6 +63,14 @@ class EditReviewFragment : Fragment() {
 
             }
 
+            val countriesSelect = view.findViewById<Spinner>(R.id.edit_country_select)
+            lifecycleScope.launch {
+                val countries = getCountries()
+
+                if(countries.size > 0) {
+                    populateSpinner(countriesSelect, countries)
+                }
+            }
             val resturantName = view.findViewById<TextView>(R.id.edit_resturant_name)
             val description = view.findViewById<TextView>(R.id.edit_reviewer_description)
             val rating = view.findViewById<RatingBar>(R.id.edit_resturant_rating)
@@ -68,6 +82,7 @@ class EditReviewFragment : Fragment() {
 
             currentReview?.review?.image?.let {
                 val bitmap = decodeBase64ToImage(it)
+                base64Image = it
                 imageView.setImageBitmap(bitmap)
             }
 
@@ -93,6 +108,7 @@ class EditReviewFragment : Fragment() {
                     reviewer_id = reviewerUid,
                     review = description.text.toString(),
                     rating = rating.rating.toInt(),
+                    country = countriesSelect.selectedItem.toString(),
                     image = base64Image,
                     id= reviewId ?: ""
                 )
@@ -116,11 +132,9 @@ class EditReviewFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
             val uri: Uri? = data?.data
-            uri?.let {
-                // Display the image
-                imageView.setImageURI(uri)
 
-                // Convert image to Base64
+            uri?.let {
+                imageView.setImageURI(uri)
                 base64Image = convertImageToBase64(uri)
             }
         }
@@ -140,6 +154,13 @@ class EditReviewFragment : Fragment() {
 
         // Convert to Base64
         return Base64.encodeToString(compressedByteArray, Base64.DEFAULT)
+    }
+
+    private fun populateSpinner(spinner: Spinner, countries: List<String>) {
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, countries)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+        spinner.setSelection(countries.indexOf("Israel"))
     }
 
     companion object {
