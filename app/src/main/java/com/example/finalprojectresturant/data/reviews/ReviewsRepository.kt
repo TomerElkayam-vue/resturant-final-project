@@ -27,7 +27,6 @@ class ReviewsRepository() {
     }
 
     suspend fun editReview(review: ReviewModel) = withContext(Dispatchers.IO) {
-        Log.i("fafa", review.id)
         firestoreHandle.document(review.id).set(review).await()
         reviewsDao.update(review)
     }
@@ -37,39 +36,19 @@ class ReviewsRepository() {
         reviewsDao.deleteById(id)
     }
 
-    fun getReviewById(id: String): LiveData<ReviewWithReviewer?> {
-        return reviewsDao.findById(id)
-    }
-
     fun getReviewsByUserId(id: String) : LiveData<List<ReviewWithReviewer>?> {
         return reviewsDao.findByUserId(id)
     }
 
-    fun getReviewsList(
-        limit: Int,
-        offset: Int,
-        scope: CoroutineScope
-    ): LiveData<List<ReviewWithReviewer>> {
-        return reviewsDao.getAllPaginated(limit, offset)
+    fun getReviewsList(): LiveData<List<ReviewWithReviewer>> {
+        return reviewsDao.getAll()
     }
 
-
-    suspend fun loadReviewFromRemoteSource(id: String) = withContext(Dispatchers.IO) {
-        val review =
-            firestoreHandle.document(id).get().await().toObject(ReviewDTO::class.java)?.toReviewModel()
-        if (review != null) {
-            reviewsDao.upsertAll(review)
-            usersRepository.cacheUserIfNotExisting(review.reviewer_id)
-        }
-
-        return@withContext reviewsDao.findById(id)
-    }
-
-    suspend fun loadReviewsFromRemoteSource(limit: Int, offset: Int) =
+    suspend fun loadReviewsFromFirebase() =
 
         withContext(Dispatchers.IO) {
          
-            val reviews = firestoreHandle.orderBy("review").startAt(offset).limit(limit.toLong())
+            val reviews = firestoreHandle.orderBy("review")
                 .get().await().toObjects(ReviewDTO::class.java).map { it.toReviewModel() }
        
             if (reviews.isNotEmpty()) {

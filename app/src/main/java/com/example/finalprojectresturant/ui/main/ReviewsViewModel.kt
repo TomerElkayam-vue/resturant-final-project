@@ -23,21 +23,21 @@ class ReviewsViewModel : ViewModel() {
     private val usersRepository = UsersRepository()
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.loadReviewsFromRemoteSource(50, 0)
+            repository.loadReviewsFromFirebase()
         }
     }
 
     fun getAllReviews(): LiveData<List<ReviewWithReviewer>> {
-        return this.repository.getReviewsList(50, 0, viewModelScope)
+        return this.repository.getReviewsList()
     }
 
     fun getAllReviewsByUserId(id: String): LiveData<List<ReviewWithReviewer>?> {
         return this.repository.getReviewsByUserId(id)
     }
 
-    fun invalidateReviews() {
+    fun reFetchReviews() {
         viewModelScope.launch {
-            repository.loadReviewsFromRemoteSource(50, 0)
+            repository.loadReviewsFromFirebase()
         }
     }
 
@@ -83,7 +83,4 @@ class ReviewsViewModel : ViewModel() {
             repository.deleteReviewById(reviewId)
         }
     }
-
-
-
 }

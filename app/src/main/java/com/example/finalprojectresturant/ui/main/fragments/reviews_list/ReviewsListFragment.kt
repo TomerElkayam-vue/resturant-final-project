@@ -28,10 +28,11 @@ class ReviewsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.reFetchReviews()
         reviewsList = view.findViewById(R.id.students_list)
         context?.let { initStudentsList(it) }
         viewModel.getAllReviews().observe(viewLifecycleOwner, {
-            if(it.isEmpty()) viewModel.invalidateReviews()
+            if(it.isEmpty()) viewModel.reFetchReviews()
             (reviewsList.adapter as? ReviewsAdapter)?.updateReviews(it)
         })
     }

@@ -13,32 +13,16 @@ class UsersRepository {
     private val usersDao = DatabaseHolder.getDatabase().usersDao()
     private val firestoreHandle = Firebase.firestore.collection("users")
 
-    suspend fun insertUsers(vararg users: UserModel) = withContext(Dispatchers.IO) {
-        firestoreHandle.add(users).await()
-        usersDao.upsertAll(*users)
-    }
-
     suspend fun upsertUser(user: UserModel) = withContext(Dispatchers.IO) {
         firestoreHandle.document(user.id).set(user).await()
         usersDao.upsertAll(user)
-    }
-
-    suspend fun deleteById(id: String) = withContext(Dispatchers.IO) {
-        usersDao.deleteByUid(id)
-    }
-
-    suspend fun cacheUserIfNotExisting(uid: String) = withContext(Dispatchers.IO) {
-        val cachedResult = usersDao.getUserByUid(uid)
-        if (cachedResult == null) {
-            this@UsersRepository.getUserFromRemoteSource(uid)
-        }
     }
 
     suspend fun cacheUsersIfNotExisting(uids: List<String>) = withContext(Dispatchers.IO) {
         val existingUserIds = usersDao.getExistingUserIds(uids)
         val nonExistingUserIds = uids.filter { !existingUserIds.contains(it) }
    
-        this@UsersRepository.getUsersFromRemoteSource(nonExistingUserIds)
+        this@UsersRepository.getUsersFromFirebase(nonExistingUserIds)
     }
 
     suspend fun getUserByUid(uid: String): UserModel? = withContext(Dispatchers.IO) {
@@ -58,7 +42,7 @@ class UsersRepository {
             return@withContext user
         }
 
-    suspend fun getUsersFromRemoteSource(uids: List<String>): List<UserModel> =
+    suspend fun getUsersFromFirebase(uids: List<String>): List<UserModel> =
         withContext(Dispatchers.IO) {
             val usersQuery =
                 if (uids.isNotEmpty()) firestoreHandle.whereIn("id", uids) else firestoreHandle
