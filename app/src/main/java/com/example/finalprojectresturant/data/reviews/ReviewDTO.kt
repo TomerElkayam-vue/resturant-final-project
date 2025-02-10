@@ -1,7 +1,5 @@
 package com.example.finalprojectresturant.data.reviews
-
 import com.example.finalprojectresturant.data.reviews.ReviewModel
-import com.google.firebase.firestore.GeoPoint
 
 data class ReviewDTO(
     val restaurant_name: String = "",

@@ -35,7 +35,7 @@ class ReviewDetailsFragment : Fragment() {
         val reviewId = arguments?.getString("review_id")
 
         viewModel.getAllReviews().observe(viewLifecycleOwner, {
-            if(it.isEmpty()) viewModel.invalidateReviews()
+            if(it.isEmpty()) viewModel.reFetchReviews()
             val reviewsList = it
 
             reviewId?.let {

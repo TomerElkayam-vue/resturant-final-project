@@ -96,7 +96,7 @@ class ProfilePageFragment : Fragment() {
         context?.let { initStudentsList(it) }
         viewModel.getAllReviewsByUserId(reviewerUid).observe(viewLifecycleOwner, {
             it?.let {
-                if(it.isEmpty()) viewModel.invalidateReviews()
+                if(it.isEmpty()) viewModel.reFetchReviews()
                 (reviewsList.adapter as? ReviewsAdapter)?.updateReviews(it)
             }
 
@@ -131,13 +131,8 @@ class ProfilePageFragment : Fragment() {
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
             val uri: Uri? = data?.data
             uri?.let {
-                // Display the image
                 imageView.setImageURI(uri)
-
-                // Convert image to Base64
                 base64Image = convertImageToBase64(uri)
-
-
 
                 mainUser?.let {
                     val newUser = UserModel(id = mainUser!!.id, profile_picture = base64Image, name = mainUser!!.name, email = mainUser!!.email)
@@ -152,16 +147,10 @@ class ProfilePageFragment : Fragment() {
     private fun convertImageToBase64(uri: Uri): String {
         val inputStream = requireContext().contentResolver.openInputStream(uri)
         val originalBitmap = BitmapFactory.decodeStream(inputStream)
-
-        // Reduce the dimensions of the image
-        val scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, 480, 480, true) // Adjust width/height
-
-        // Compress the Bitmap
+        val scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, 480, 480, true)
         val compressedStream = ByteArrayOutputStream()
         scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 70, compressedStream) // Lower quality to 30%
         val compressedByteArray = compressedStream.toByteArray()
-
-        // Convert to Base64
         return Base64.encodeToString(compressedByteArray, Base64.DEFAULT)
     }
 

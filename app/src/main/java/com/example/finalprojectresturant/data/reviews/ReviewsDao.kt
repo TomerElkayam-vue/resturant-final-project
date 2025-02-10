@@ -9,8 +9,8 @@ import androidx.room.Upsert
 
 @Dao
 interface ReviewsDao {
-    @Query("SELECT * FROM reviews LIMIT :limit OFFSET :offset")
-    fun getAllPaginated(limit: Int, offset: Int): LiveData<List<ReviewWithReviewer>>
+    @Query("SELECT * FROM reviews")
+    fun getAll(): LiveData<List<ReviewWithReviewer>>
 
     @Query("SELECT * FROM reviews WHERE id = :id")
     fun findById(id: String): LiveData<ReviewWithReviewer?>
