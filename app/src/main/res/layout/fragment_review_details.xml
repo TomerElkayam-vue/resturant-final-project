@@ -29,6 +29,7 @@
         <TextView
             android:id="@+id/details_resturant_name"
             android:layout_width="0dp"
+            android:textColor="@color/text"
             android:layout_height="wrap_content"
             android:text="Restaurant Name"
             android:textSize="24sp"
@@ -42,6 +43,7 @@
         <TextView
             android:id="@+id/details_country"
             android:layout_width="0dp"
+            android:textColor="@color/text"
             android:layout_height="wrap_content"
             android:text="Country"
             android:textSize="24sp"
@@ -60,12 +62,14 @@
             app:layout_constraintTop_toBottomOf="@id/details_country"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:progressTint="@color/secondary"
             android:layout_marginTop="8dp" />
 
         <!-- Reviewer Name -->
         <TextView
             android:id="@+id/details_reviewer_id"
             android:layout_width="0dp"
+            android:textColor="@color/text"
             android:layout_height="wrap_content"
             android:text="Reviewer Name"
             android:textSize="16sp"
@@ -82,6 +86,7 @@
             android:layout_height="wrap_content"
             android:text="Reviewer Description"
             android:textSize="16sp"
+            android:textColor="@color/text"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/details_reviewer_id"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +98,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Edit"
+            android:textColor="@color/text"
+            android:backgroundTint="@color/primary"
             app:icon="@android:drawable/ic_menu_edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

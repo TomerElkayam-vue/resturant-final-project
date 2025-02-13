@@ -17,7 +17,7 @@ data class UserModel(
             id = id,
             name = name,
             email = email,
-            profilePicture = profile_picture
+            profile_picture = profile_picture
         )
     }
     companion object {

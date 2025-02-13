@@ -29,10 +29,10 @@ class UsersRepository {
         val cachedResult = usersDao.getUserByUid(uid)
         if (cachedResult != null) return@withContext cachedResult
 
-        return@withContext this@UsersRepository.getUserFromRemoteSource(uid)
+        return@withContext this@UsersRepository.getUserFromFirebase(uid)
     }
 
-    private suspend fun getUserFromRemoteSource(uid: String): UserModel? =
+    private suspend fun getUserFromFirebase(uid: String): UserModel? =
         withContext(Dispatchers.IO) {
             val user =
                 firestoreHandle.document(uid).get().await().toObject(UserDTO::class.java)?.toUserModel()

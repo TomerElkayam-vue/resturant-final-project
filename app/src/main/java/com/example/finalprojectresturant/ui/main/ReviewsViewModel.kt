@@ -21,11 +21,6 @@ data class ReviewsUiState(val reviewId: String = "")
 class ReviewsViewModel : ViewModel() {
     private val repository = ReviewsRepository()
     private val usersRepository = UsersRepository()
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.loadReviewsFromFirebase()
-        }
-    }
 
     fun getAllReviews(): LiveData<List<ReviewWithReviewer>> {
         return this.repository.getReviewsList()
@@ -37,6 +32,7 @@ class ReviewsViewModel : ViewModel() {
 
     fun reFetchReviews() {
         viewModelScope.launch {
+            repository.deleteReviews()
             repository.loadReviewsFromFirebase()
         }
     }

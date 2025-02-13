@@ -44,17 +44,22 @@ class ReviewsRepository() {
         return reviewsDao.getAll()
     }
 
+    suspend fun deleteReviews() = withContext(Dispatchers.IO)  {
+        reviewsDao.deleteAll()
+    }
+
+    suspend fun syncReviewsBetweenFirebaseAnDao(firebaseReviews: List<ReviewModel>) {
+        val remoteReviewsId = firebaseReviews.map { it.id }
+        reviewsDao.insertOrUpdate(firebaseReviews)
+        reviewsDao.deleteReviewsNotIn(remoteReviewsId)
+    }
+
     suspend fun loadReviewsFromFirebase() =
-
         withContext(Dispatchers.IO) {
-         
-            val reviews = firestoreHandle.orderBy("review")
+            val reviews = firestoreHandle
                 .get().await().toObjects(ReviewDTO::class.java).map { it.toReviewModel() }
-       
-            if (reviews.isNotEmpty()) {
-                usersRepository.cacheUsersIfNotExisting(reviews.map { it.reviewer_id })
-                reviewsDao.upsertAll(*reviews.toTypedArray())
 
-            }
+            usersRepository.cacheUsersIfNotExisting(reviews.map { it.reviewer_id })
+            syncReviewsBetweenFirebaseAnDao(reviews)
         }
 }

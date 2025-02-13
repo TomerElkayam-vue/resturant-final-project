@@ -64,7 +64,7 @@ class ReviewDetailsFragment : Fragment() {
             }
 
             resturantName.text = currentReview?.review?.restaurant_name ?: ""
-            description.text = currentReview?.review?.id ?: ""
+            description.text = currentReview?.review?.review ?: ""
             country.text = currentReview?.review?.country ?: "Israel"
             userId.text = currentReview?.reviewer?.name ?: ""
             rating.rating = currentReview?.review?.rating?.toFloat() ?: 0f

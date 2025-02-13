@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
@@ -32,6 +33,15 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
 
+private val listener: AdapterView.OnItemSelectedListener =
+    object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            (parent.getChildAt(0) as TextView).setTextColor(0x000000)
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
+    }
 
 class EditReviewFragment : Fragment() {
     private val viewModel: ReviewsViewModel by activityViewModels()
@@ -160,6 +170,7 @@ class EditReviewFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, countries)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
+        spinner.setOnItemSelectedListener(listener)
         spinner.setSelection(countries.indexOf("Israel"))
     }
 
