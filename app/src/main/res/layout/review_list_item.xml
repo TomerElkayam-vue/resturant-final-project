@@ -6,15 +6,16 @@
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
     app:cardCornerRadius="12dp"
+    app:contentPadding="0dp"
+    app:cardBackgroundColor="@color/primary"
     android:id="@+id/student_list_item"
-    app:cardElevation="8dp">
+    app:cardElevation="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Image occupying 70% of the card height -->
         <ImageView
             android:id="@+id/review_image"
             android:layout_width="wrap_content"
@@ -31,6 +32,7 @@
             android:id="@+id/resturant_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/text"
             android:text="Restaurant Name"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -45,9 +47,11 @@
             android:id="@+id/resturant_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/text"
             app:layout_constraintTop_toBottomOf="@id/resturant_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:progressTint="@color/secondary"
             android:layout_marginTop="8dp" />
 
         <!-- Reviewer Name -->
@@ -55,6 +59,7 @@
             android:id="@+id/reviewer_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textColor="@color/text"
             android:text="Reviewer Name"
             android:textSize="16sp"
             android:gravity="center"

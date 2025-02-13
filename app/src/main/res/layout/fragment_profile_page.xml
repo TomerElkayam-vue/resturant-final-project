@@ -1,19 +1,23 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+
     tools:context=".ui.main.fragments.profile_page.ProfilePageFragment">
 
     <!-- Profile Banner -->
     <LinearLayout
+        android:id="@+id/profile_banner"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:ignore="MissingConstraints">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/profile_picture"
@@ -27,6 +31,7 @@
         <TextView
             android:id="@+id/username_text"
             android:layout_width="wrap_content"
+            android:textColor="@color/text"
             android:layout_height="wrap_content"
             android:text="Hello, Username!"
             android:textSize="18sp"
@@ -37,7 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:background="#3F51B5"
+            android:backgroundTint="@color/primary"
+            android:textColor="@color/text"
             android:icon="@android:drawable/ic_menu_more"
             android:text="Logout"
             android:textSize="18sp" />
@@ -49,8 +55,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profile_page_posts_list"
         android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_banner"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:layout_marginBottom="56dp"
         tools:listitem="@layout/item_post" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

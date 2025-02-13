@@ -4,21 +4,22 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -29,6 +30,17 @@ import com.example.finalprojectresturant.utils.getCountries
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
+
+
+private val listener: AdapterView.OnItemSelectedListener =
+    object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            (parent.getChildAt(0) as TextView).setTextColor(Color.BLACK)
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
+    }
 
 
 class CreateReviewFragment : Fragment() {
@@ -54,6 +66,7 @@ class CreateReviewFragment : Fragment() {
         val countriesSelect = view.findViewById<Spinner>(R.id.create_country_select)
         lifecycleScope.launch {
             val countries = getCountries()
+
 
             if(countries.size > 0) {
                 populateSpinner(countriesSelect, countries)
@@ -117,6 +130,7 @@ class CreateReviewFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, countries)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
+        spinner.setOnItemSelectedListener(listener)
         spinner.setSelection(countries.indexOf("Israel"))
     }
 
@@ -124,4 +138,6 @@ class CreateReviewFragment : Fragment() {
         private const val REQUEST_IMAGE_PICK = 1001
     }
 }
+
+
 

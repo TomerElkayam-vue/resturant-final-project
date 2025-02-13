@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -55,6 +56,7 @@ class ProfilePageFragment : Fragment() {
         imageView = view.findViewById<ImageView>(R.id.profile_picture)
         viewModel.getUserById(reviewerUid).observe(viewLifecycleOwner) { user ->
             user?.let {
+                Log.i("fafafa", it.name.toString())
                 mainUser = it
                 usernameText.text = it.name ?: "Guest"
 

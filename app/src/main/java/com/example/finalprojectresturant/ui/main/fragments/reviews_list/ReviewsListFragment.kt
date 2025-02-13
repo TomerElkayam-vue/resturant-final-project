@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -28,10 +29,15 @@ class ReviewsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val progressBar = view.findViewById<ProgressBar>(R.id.progressBar)
+        reviewsList = view.findViewById<RecyclerView>(R.id.students_list)
+        progressBar.visibility = View.VISIBLE
+        reviewsList.visibility = View.GONE
         viewModel.reFetchReviews()
-        reviewsList = view.findViewById(R.id.students_list)
         context?.let { initStudentsList(it) }
         viewModel.getAllReviews().observe(viewLifecycleOwner, {
+            progressBar.visibility = View.GONE
+            reviewsList.visibility = View.VISIBLE
             if(it.isEmpty()) viewModel.reFetchReviews()
             (reviewsList.adapter as? ReviewsAdapter)?.updateReviews(it)
         })
